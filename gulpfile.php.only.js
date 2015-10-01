@@ -9,20 +9,25 @@ var paths = {
   php: ['./**/*.php']
 };
 
+var ports = {
+  server: 9999,
+  browserSync: 10000
+}
+
 gulp.task('default', ['watch', 'browser-sync']);
 
 gulp.task('php', function(){
   php.server({
               base: '',
-              port: 9999,
+              port: ports.server,
               keepalive: false,
   });
 });
 
 gulp.task('browser-sync', ['php'], function() {
   browserSync({
-    proxy: '127.0.0.1:9999',
-    port: 10000,
+    proxy: '127.0.0.1:' + ports.server,
+    port: ports.browserSync,
     open: true,
     notify: false
   });

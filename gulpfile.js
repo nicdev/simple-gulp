@@ -18,6 +18,12 @@ var paths = {
   php: ['./app/**/*.php', './resources/**/*.blade.php']
 };
 
+var ports = {
+  server: 7777,
+  browserSync: 12345
+}
+
+
 gulp.task('default', ['watch', 'sass', 'scripts', 'images', 'browser-sync']);
 
 gulp.task('sass', function () {
@@ -50,15 +56,15 @@ gulp.task('images', function() {
 gulp.task('php', function(){
   php.server({
               base: 'public',
-              port: 7777,
+              port: ports.server,
               keepalive: false,
   });
 });
 
 gulp.task('browser-sync', ['php'], function() {
   browserSync({
-    proxy: '127.0.0.1:7777',
-    port: 12345,
+    proxy: '127.0.0.1:' + ports.server,
+    port: ports.browserSync,
     open: true,
     notify: false
   });
